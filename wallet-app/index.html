@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#d4af37">
+<title>محفظتي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0206;--card:#201418;--head:#26282b;--line:#3a2a31;--acc:#f5d77a;--acc2:#d4af37;--on:#241a00;--txt:#f4ece6;--mute:#9b8b92;--ok:#1fdc7a;--bad:#ff4a2a;--b1:#3a3a3e;--b2:#4a0f22;--fs:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font:var(--fs)/1.6 Cairo,system-ui,sans-serif}
+#app{max-width:520px;margin:auto;padding:0 14px 110px}
+.g{background:linear-gradient(135deg,var(--acc),var(--acc2))}
+.gt{background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{margin:.3em 0;color:var(--acc);text-align:center}
+input,select,textarea{width:100%;padding:15px 18px;margin:6px 0;border-radius:26px;border:1px solid var(--line);background-color:var(--inp,color-mix(in srgb,var(--bg) 70%,#000));color:var(--txt);font:inherit;text-align:center}
+input[type=color]{padding:2px;height:44px;border-radius:12px}input[type=checkbox]{width:22px;height:22px;margin:0}
+button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:26px;padding:15px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--on);width:100%;box-shadow:0 6px 18px color-mix(in srgb,var(--acc2) 25%,transparent)}
+button.ghost{background:none;border:1px solid var(--acc);color:var(--acc);box-shadow:none}
+button.sm{width:auto;padding:8px 18px}button.grn{background:#00875a;color:#fff}button.gry{background:#555;color:#fff}
+button:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px;margin:14px 0}
+.dash{border:1px dashed var(--acc2);border-radius:20px;padding:14px;margin:12px 0;text-align:center}
+.hd{background:var(--head);margin:0 -14px;padding:calc(env(safe-area-inset-top) + 14px) 16px 14px;display:flex;align-items:center;gap:12px}
+.av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:30px;border:0;padding:0;box-shadow:none;flex:none}
+.hd .nm{flex:1;font-weight:900;font-size:1.15em;line-height:1.3}.hd small{color:var(--mute);font-weight:400;display:block}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);margin-inline-end:6px}
+.ib{width:56px;height:56px;border-radius:18px;padding:0;font-size:24px;flex:none}.kb{background:none;color:var(--acc);box-shadow:none;width:30px;padding:0;font-size:26px}
+.bc{background:linear-gradient(135deg,var(--b1),var(--b2));border:1px solid var(--line);border-radius:28px;margin:18px 0 12px;text-align:center;overflow:hidden}
+.bc .p{padding:18px 10px 6px}.bc .num{font-size:1.7em;font-weight:900}.bc .bal{font-size:2em;font-weight:900;display:flex;justify-content:center;align-items:center;gap:10px}
+.bc .bar{background:#0003;display:flex;justify-content:space-around;align-items:center;padding:14px;font-weight:700;margin-top:10px}
+.bar button{background:none;color:var(--txt);box-shadow:none;width:auto;padding:4px 10px}.qr{background:#fff!important;color:#000!important;border-radius:14px!important;font-size:34px;line-height:1;padding:10px!important}
+.eye{background:none;box-shadow:none;width:auto;padding:0;font-size:1.2em}
+.promo{border:1px dashed #2f8fe8;background:#0b1830;color:#2f9bff;border-radius:20px;padding:14px;text-align:center;font-weight:700;margin:12px 0}
+.back{width:auto;padding:10px 22px;margin:6px 0 10px;display:block;margin-inline-start:0}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{background:var(--card);border:1px solid var(--line);color:var(--txt);border-radius:22px;padding:18px 4px;font-size:.95em;box-shadow:none}.tile span{display:block;font-size:2em}
+.tile.hl{color:var(--acc)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pk{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:0 12px 14px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 22px color-mix(in srgb,var(--acc2) 10%,transparent)}
+.pk .sz{position:absolute;top:0;right:0;background:var(--acc);color:var(--on);font-weight:900;padding:6px 16px;border-radius:0 0 22px 0;font-style:normal}
+.pk .off{position:absolute;top:0;left:0;background:var(--bad);color:#fff;font-weight:900;padding:6px 16px;border-radius:0 0 0 22px;font-style:normal;font-size:.9em}
+.pk .pn{margin-top:50px;font-weight:900;display:flex;justify-content:center;gap:10px;align-items:center}
+.st{background:none;box-shadow:none;color:#555;width:auto;padding:0;font-size:1.5em}.st.on{color:var(--acc)}
+.avl{color:var(--ok);font-size:.9em;margin-top:6px}.old{color:var(--mute);text-decoration:line-through;margin:4px 0}.pr{font-size:1.6em;font-weight:900;color:var(--acc);margin-bottom:8px}
+.pk input{padding:8px;margin:0 0 8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.92em}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stats div{border:1px solid;border-radius:20px;padding:12px 4px;text-align:center;font-weight:700}.stats b{display:block;font-size:1.5em}
+.tabs{display:flex;gap:10px;margin:14px 0 0}.tabs button{border-radius:26px 26px 0 0;background:var(--card);color:var(--acc);border:1px solid var(--acc2);box-shadow:none}.tabs .on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:var(--on)}
+.msg{padding:12px 14px;border-radius:16px;margin:10px 0;background:#2a1519;border:1px solid var(--bad);color:#ffb4a5;word-break:break-word}.msg.ok{background:#0e2a1c;border-color:var(--ok);color:#9ff0c6}
+.tag{color:var(--mute);font-size:.88em}.in{color:var(--ok)}.out{color:var(--bad)}
+code{direction:ltr;display:inline-block;background:#0004;padding:2px 10px;border-radius:10px;user-select:all}
+.banner{margin-top:calc(env(safe-area-inset-top) + 10px);border-radius:0 0 44px 0;border-radius:30px 30px 44px 44px;height:210px;background:radial-gradient(circle at 70% 30%,#0e5a73,#071c28);display:flex;align-items:center;justify-content:center;gap:16px;font-size:44px;overflow:hidden}
+.banner img,.banner svg{height:150px;max-width:55%;object-fit:contain}
+.title{font-size:3em;font-weight:900;text-align:center;line-height:1.2;margin:10px 0 0}
+.fab{position:fixed;bottom:calc(env(safe-area-inset-bottom) + 90px);inset-inline-start:calc(50% - 250px);display:grid;gap:12px}
+.fab a,.fab button{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:28px;text-decoration:none;padding:0}
+.fab a{background:#25d366;border:3px solid #fff;box-shadow:0 0 20px #25d36680;color:#fff}.fab button{background:#000;color:#fff;border:1px solid #555;font-size:22px}
+@media(max-width:540px){.fab{inset-inline-start:auto;inset-inline-end:14px}}
+.dr{position:fixed;inset:0;background:#000a;z-index:9;display:flex}.dr>div{width:78%;max-width:380px;background:#26282b;border-inline-start:3px solid var(--acc2);padding:calc(env(safe-area-inset-top) + 30px) 24px;text-align:center;overflow:auto}
+.dr .av{width:110px;height:110px;font-size:60px;margin:0 auto 12px}.dr .it{background:none;color:var(--txt);box-shadow:none;text-align:start;font-size:1.1em;padding:18px 6px}.dr .lo{background:#3d1f22;border:1px solid #7a2020;color:#ff5a3c;box-shadow:none;margin-top:20px}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.sw button{box-shadow:none;border:2px solid transparent;padding:12px 4px;font-size:.9em}.sw .cur{border-color:#fff}
+.wheel{width:230px;height:230px;margin:16px auto;border-radius:50%;border:10px solid var(--acc2);background:conic-gradient(var(--acc) 0 45deg,#3b0716 45deg 90deg,var(--acc) 90deg 135deg,#3b0716 135deg 180deg,var(--acc) 180deg 225deg,#3b0716 225deg 270deg,var(--acc) 270deg 315deg,#3b0716 315deg);position:relative;transition:transform 3s cubic-bezier(.2,.8,.2,1)}
+.wheel::after{content:"أدر";position:absolute;inset:34% ;background:#fff;color:#000;border-radius:50%;display:grid;place-items:center;font-weight:900}
+.ptr{position:relative;height:0}.ptr::before{content:"▼";position:absolute;top:2px;left:50%;transform:translateX(-50%);color:var(--ok);font-size:34px;z-index:2}
+input,select,textarea{background-image:linear-gradient(180deg,rgba(255,255,255,.07),transparent 55%),linear-gradient(110deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);background-size:100% 100%,250% 100%;background-position:0 0,120% 0;background-repeat:no-repeat;box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 14px color-mix(in srgb,var(--acc2) 14%,transparent);transition:box-shadow .3s,border-color .3s}
+input:focus,select:focus,textarea:focus{border-color:var(--acc2);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 0 20px color-mix(in srgb,var(--acc2) 45%,transparent);animation:sheen 1.2s ease}
+@keyframes sheen{from{background-position:0 0,120% 0}to{background-position:0 0,-30% 0}}
+@media(prefers-reduced-motion:reduce){input:focus,select:focus,textarea:focus{animation:none}}
+.pw{position:relative}.pw input{padding-inline:52px}.eye2{position:absolute;top:50%;inset-inline-end:12px;transform:translateY(-50%);background:none;box-shadow:none;width:auto;padding:6px;font-size:1.25em;color:var(--txt)}
+[dir=ltr] .mn{left:auto;right:16px}[dir=ltr] .bdg{right:auto;left:-6px}
+.bdg{position:absolute;top:-6px;right:-6px;background:var(--bad);color:#fff;border-radius:12px;min-width:22px;height:22px;font-size:.7em;display:grid;place-items:center;padding:0 5px}.hd{position:relative}.mn{position:absolute;top:calc(100% - 6px);left:16px;z-index:9;background:var(--head);border:1px solid var(--acc2);border-radius:18px;padding:6px;min-width:210px;box-shadow:0 10px 30px #000a}
+.mn button{background:none;color:var(--txt);box-shadow:none;text-align:start;padding:12px 14px;border-radius:12px}.mn button:hover{background:#ffffff12}.mnb{position:fixed;inset:0;z-index:8}
+button:disabled{cursor:not-allowed}.doc p{margin:.5em 0}.doc b{color:var(--acc)}
+#ld{display:none;position:fixed;inset:0;z-index:99;background:rgba(10,0,4,.82);backdrop-filter:blur(2px);flex-direction:column;align-items:center;justify-content:center;gap:26px;color:var(--acc);font-size:1.5em;font-weight:900}
+.sp{width:80px;height:80px;border-radius:50%;border:6px solid #ffffff18;border-top-color:var(--acc);animation:spin .9s linear infinite;box-shadow:0 0 30px color-mix(in srgb,var(--acc2) 35%,transparent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media print{body *{visibility:hidden}#stm,#stm *{visibility:visible}#stm{position:absolute;inset:0;color:#000}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="ld" role="status" aria-live="polite"><div class="sp"></div><span>جاري المعالجة...</span></div>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const val=id=>$('#'+id).value, money=n=>Number(n).toLocaleString('en-US');
+/* ====== الثيمات ====== */
+const PRESETS={
+ gold:{n:'عنابي ذهبي',bg:'#0f0206',card:'#201418',head:'#26282b',line:'#3a2a31',acc:'#f5d77a',acc2:'#d4af37',on:'#241a00',txt:'#f4ece6',mute:'#9b8b92',b1:'#3a3a3e',b2:'#4a0f22'},
+ emerald:{n:'زمردي',bg:'#04100c',card:'#0f1f1a',head:'#13241e',line:'#21402f',acc:'#6fe3b0',acc2:'#1fa97a',on:'#00241a',txt:'#e8f6ef',mute:'#86a597',b1:'#1f3a31',b2:'#0b4a38'},
+ ocean:{n:'أزرق محيطي',bg:'#050b14',card:'#0e1826',head:'#122033',line:'#203650',acc:'#7cc4ff',acc2:'#2f80ed',on:'#00182e',txt:'#e8f1fb',mute:'#8499b0',b1:'#1c2f4a',b2:'#0b3d6b'},
+ violet:{n:'بنفسجي',bg:'#0b0614',card:'#1a1226',head:'#221733',line:'#3a2a54',acc:'#dcbfff',acc2:'#8e4dff',on:'#1b0838',txt:'#f1e9fb',mute:'#9a8bb0',b1:'#2c2142',b2:'#4a1d7a'},
+ light:{n:'فاتح',bg:'#f6f1e7',card:'#ffffff',head:'#ffffff',line:'#e4dac8',acc:'#e6c25a',acc2:'#b8902a',on:'#2a1d00',txt:'#2a2118',mute:'#7a6f60',b1:'#fbeec2',b2:'#f0d27a'}
+};
+let CFG=JSON.parse(localStorage.getItem('cfg')||'null')||{preset:'gold',over:{},logo:'',name:'محفظتي',fs:16};
+const shade=(h,a)=>'#'+[1,3,5].map(i=>Math.max(0,Math.min(255,parseInt(h.substr(i,2),16)+a)).toString(16).padStart(2,'0')).join('');
+Object.assign(PRESETS,{
+ crimson:{n:'قرمزي',bg:'#12020a',card:'#240a14',head:'#2b0f1b',line:'#4a1a2a',acc:'#ff8fa3',acc2:'#e0245e',on:'#2b0010',txt:'#fbe9ee',mute:'#b08894',b1:'#3a1624',b2:'#7a0f33'},
+ sunset:{n:'غروب',bg:'#120804',card:'#231409',head:'#2a1a0e',line:'#4a2e1a',acc:'#ffb36b',acc2:'#f06a1d',on:'#2a1200',txt:'#fdeee0',mute:'#b39579',b1:'#3a2410',b2:'#8a3a0a'},
+ teal:{n:'فيروزي',bg:'#031314',card:'#0b2224',head:'#0f2c2f',line:'#1d4a4e',acc:'#7ff0e6',acc2:'#12b5a8',on:'#00201e',txt:'#e6fbf9',mute:'#86aaa8',b1:'#12373a',b2:'#08595a'},
+ forest:{n:'غابة',bg:'#050d07',card:'#0f1c12',head:'#14261a',line:'#26422c',acc:'#b5e48c',acc2:'#5aa532',on:'#0e2000',txt:'#eaf6e2',mute:'#8fa88a',b1:'#1c3322',b2:'#2c5a1f'},
+ midnight:{n:'منتصف الليل',bg:'#04060f',card:'#0c1224',head:'#10182e',line:'#1f2b4d',acc:'#a5b4ff',acc2:'#5b6cff',on:'#0a0f33',txt:'#e8ecff',mute:'#8590b8',b1:'#18224a',b2:'#2b2f8a'},
+ rose:{n:'وردي',bg:'#14060c',card:'#25101a',head:'#2d1521',line:'#4d2638',acc:'#ffc2d9',acc2:'#ec5f9a',on:'#33001a',txt:'#fdeaf2',mute:'#b58a9d',b1:'#3d1a2b',b2:'#8a1f55'},
+ amoled:{n:'أسود نقي',bg:'#000000',card:'#0d0d0d',head:'#080808',line:'#222222',acc:'#ffffff',acc2:'#bdbdbd',on:'#000000',txt:'#f2f2f2',mute:'#888888',b1:'#1a1a1a',b2:'#2a2a2a'},
+ cyber:{n:'نيون',bg:'#05020f',card:'#120a24',head:'#170d2e',line:'#3a1f6b',acc:'#39ffd0',acc2:'#ff2bd6',on:'#06001a',txt:'#ece6ff',mute:'#9a8ac4',b1:'#241047',b2:'#5a0f7a'},
+ mocha:{n:'موكا',bg:'#120b08',card:'#221611',head:'#2a1c15',line:'#46332a',acc:'#e3c3a1',acc2:'#b9824f',on:'#2a1500',txt:'#f6ebe2',mute:'#ad9a8a',b1:'#36241b',b2:'#6b3f22'},
+ slate:{n:'رمادي هادئ',bg:'#0e1114',card:'#1a1f25',head:'#20262d',line:'#333c46',acc:'#cfd8e3',acc2:'#8b9bb0',on:'#10161c',txt:'#eef2f6',mute:'#8794a3',b1:'#262e37',b2:'#3c4857'},
+ sky:{n:'سماوي فاتح',bg:'#eef6fc',card:'#ffffff',head:'#ffffff',line:'#d3e3f0',acc:'#7cc4ff',acc2:'#2f80ed',on:'#00182e',txt:'#14283a',mute:'#5f7a90',b1:'#d9ecfb',b2:'#a9d3f5',inp:'#e6f1fa'},
+ mint:{n:'نعناعي فاتح',bg:'#eefaf3',card:'#ffffff',head:'#ffffff',line:'#cfe8d9',acc:'#6fe3b0',acc2:'#1fa97a',on:'#00241a',txt:'#10281d',mute:'#5b7a68',b1:'#d7f3e4',b2:'#a7e3c3',inp:'#e3f5ea'},
+ blush:{n:'وردي فاتح',bg:'#fdf0f4',card:'#ffffff',head:'#ffffff',line:'#f1d3dd',acc:'#ffb3cf',acc2:'#e0457f',on:'#33001a',txt:'#2d1520',mute:'#8a6070',b1:'#fde0ea',b2:'#f7b4cb',inp:'#fbe6ee'},
+ lavender:{n:'لافندر فاتح',bg:'#f4f0fc',card:'#ffffff',head:'#ffffff',line:'#ddd3f2',acc:'#cdb4ff',acc2:'#8e4dff',on:'#1b0838',txt:'#231a35',mute:'#6f6490',b1:'#e8dcff',b2:'#cdb3f7',inp:'#ece6f8'}
+});
+PRESETS.light.inp='#f3ece0';
+/* ====== i18n ====== */
+const LANG=()=>CFG.lang||'ar';
+const EN={
+"جاري المعالجة":"Processing","محفظتي":"My Wallet","غير موجود":"Not found",
+"السيرفر يعمل بنسخة قديمة. استبدل server.js بالنسخة الجديدة، ثم أوقف السيرفر (Ctrl+C) وشغّله من جديد":"The server is running an old version. Replace server.js with the new one, then stop the server (Ctrl+C) and start it again",
+"تعذر الاتصال بالخادم. شغّل server.js وافتح التطبيق من عنوانه (مثل http://localhost:3000) وليس من الملف أو المعاينة مباشرة":"Could not reach the server. Run server.js and open the app from its address (e.g. http://localhost:3000), not from the file or a preview",
+"رقم الإدارة":"Admin number","كلمة السر":"Admin password","تأكيد":"Confirm","رجوع":"Back","تسجيل الدخول":"Log in","حساب جديد":"New account","البريد الإلكتروني":"Email",
+"رقم الهاتف (7XXXXXXXX)":"Phone number (7XXXXXXXX)","الاسم الرباعي (بنفس الفواصل والنقاط)":"Full four-part name (exact commas and dots)","كلمة المرور":"Password","تأكيد كلمة المرور":"Confirm password",
+"احفظ اسمك الرباعي كما كتبته تماماً؛ هو مفتاح الدخول واسترجاع الحساب":"Remember your full name exactly as typed; it is your login key and account recovery",
+"إنشاء الحساب":"Create account","الاسم الرباعي كما سجلته":"Full name as registered","تذكرني (مفعل دائماً لراحتك)":"Remember me (always on for your convenience)",
+"لاسترجاع الحساب أدخل بريدك واسمك الرباعي كما سجلته، أو تواصل مع الدعم":"To recover your account, enter your email and full name exactly as registered, or contact support",
+"نسيت كلمة المرور":"Forgot password","دخول زائر (للتصفح فقط)":"Guest login (browse only)","دخول زائر":"Guest login",
+"الإعدادات":"Settings","القائمة الرئيسية":"Main menu","مطوّر":"Developer","(مطوّر)":"(Developer)","عميل عادي":"Regular customer","لوحة المطوّر":"Developer panel","مسددة":"Repaid","غير مسددة":"Unpaid",
+"مرحبا بك":"Welcome","القائمة":"Menu","الإشعارات":"Notifications","المزيد":"More","الرصيد المتاح":"Available balance","إظهار الرصيد":"Show balance","ريال":"YER","الرئيسية":"Home","نسخ الرقم":"Copy number",
+"أثناء عمليات شراء الباقات يمكنك الحصول على باقة مميزة":"While buying packages you can get a special package","مساعدة":"Help","مشاركة التطبيق":"Share the app","إعدادات الحساب":"Account settings","تسجيل الخروج":"Log out","تم نسخ رابط التطبيق":"App link copied",
+"متجر الباقات":"Package store","شحن الرصيد":"Top up balance","تحويل رصيد":"Transfer balance","سجل كروتي":"My cards","عجلة الحظ":"Lucky wheel","كشف الحساب":"Statement","خدمة سلفني":"Loan service","الدعم الفني":"Support",
+"شراء":"Purchase","شحن":"Top-up","تحويل وارد":"Incoming transfer","تحويل صادر":"Outgoing transfer","سلفة":"Loan","سداد سلفة":"Loan repayment","جائزة":"Prize",
+"لا توجد عمليات":"No transactions","مفضلة":"Favorite","الكمية":"Quantity","لا توجد نتائج":"No results","أحدث العمليات":"Latest transactions","المفضلة":"Favorites","بحث عن كرت":"Search for a card","نسخ الكل":"Copy all","لا توجد كروت بعد":"No cards yet",
+"إشعار تحويل":"Transfer notice","الاسم المسجل لدينا":"Registered name","ادخل المبلغ الذي حولته بالضبط":"Enter the exact amount you transferred","إرسال الطلب":"Send request",
+"تحويل رصيد الى حساب آخر":"Transfer balance to another account","رقم هاتف المستلم":"Recipient's phone number","المبلغ المراد تحويله":"Amount to transfer","إرسال الرصيد الآن":"Send balance now",
+"تعذر تحميل حالة الخدمة":"Could not load the service status","عليك سلفة سابقة غير مسددة":"You have an unpaid previous loan",
+"لا يمكنك طلب سلفة جديدة قبل سدادها. لسدادها اشحن رصيدك وسيُخصم المبلغ تلقائياً من أول شحن، ثم تستطيع طلب سلفة جديدة":"You cannot request a new loan before repaying it. To repay, top up your balance and the amount will be deducted automatically from your first top-up; then you can request a new loan",
+"شحن الرصيد لسداد السلفة":"Top up to repay the loan","أنت مؤهل للحصول على سلفة 1000 ريال":"You are eligible for a 1000 YER loan",
+"لست مؤهلاً حالياً: تتوفر السلفة (1000 ريال) إذا كانت آخر معاملة لك 5000 ريال أو أكثر":"Not eligible right now: the loan (1000 YER) is available if your last transaction was 5000 YER or more",
+"خدمة سلفني للطوارئ":"Emergency Loan Service","احصل على رصيد فوري وسدده لاحقاً عند الشحن":"Get instant credit and repay it later when you top up","حالة الخدمة":"Service status",
+"سيتم خصم المبلغ تلقائياً عند أول عملية شحن":"The amount will be deducted automatically at your first top-up","طلب سلفة فورية":"Request an instant loan","سجل السلف":"Loan history","لا توجد سلف سابقة":"No previous loans",
+"عجلة الحظ اليومية":"Daily Lucky Wheel","جرب حظك واربح رصيد مجاني كل 24 ساعة":"Try your luck and win free credit every 24 hours","أدر":"Spin",
+"كشف الحساب التفصيلي":"Detailed statement","إلى":"To","من":"From","استعلام السجل":"Query history","طباعة":"Print","إكسل":"Excel",
+"فتح تذكرة جديدة":"Open a new ticket","عنوان المشكلة":"Issue title","تفاصيل المشكلة":"Issue details","إرسال التذكرة":"Send ticket","تذاكري السابقة":"My previous tickets","بانتظار الرد":"Awaiting reply","لا توجد تذاكر":"No tickets",
+"تأكيد الشراء":"Confirm purchase","إلغاء":"Cancel","تمت عملية الشراء":"Purchase completed","انسخ الكود واستخدمه":"Copy the code and use it","نسخ":"Copy","العودة للمتجر":"Back to store",
+"الشروط والأحكام":"Terms and Conditions","1. القبول":"1. Acceptance","باستخدامك التطبيق أو إنشاء حساب فيه فأنت توافق على هذه الشروط":"By using the app or creating an account you agree to these terms",
+"2. الحساب":"2. Account","يجب أن تكون بيانات التسجيل (البريد ورقم الهاتف والاسم الرباعي) صحيحة. الاسم الرباعي بفواصله ونقاطه هو مفتاح دخولك واسترجاع حسابك، وأنت مسؤول عن حفظه وعدم مشاركته":"Your registration details (email, phone number and full name) must be correct. Your full name, with its exact commas and dots, is your login key and account recovery; you are responsible for keeping it and not sharing it",
+"3. الجهاز":"3. Device","يُسمح بحساب واحد لكل جهاز، ولا يمكن تسجيل حساب آخر من الجهاز نفسه":"One account is allowed per device; another account cannot be registered from the same device",
+"4. شحن الرصيد":"4. Top-up","يُضاف الرصيد بعد مراجعة الإدارة لإشعار التحويل واعتماده. يجب أن يطابق المبلغ في الإشعار المبلغ المحوَّل فعلاً":"Balance is added after the admin reviews and approves your transfer notice. The amount in the notice must match the amount actually transferred",
+"5. شراء الكروت":"5. Buying cards","تُسلَّم الأكواد فور تأكيد الشراء ولا يمكن استرجاعها أو استبدالها بعد التسليم. تأكد من الباقة والكمية قبل التأكيد":"Codes are delivered immediately after confirming the purchase and cannot be refunded or exchanged after delivery. Check the package and quantity before confirming",
+"6. السلفة":"6. Loan","خدمة 1000 ريال تتوفر إذا كانت آخر معاملة لك (شراء أو شحن) 5000 ريال أو أكثر، وبشرط عدم وجود سلفة سابقة غير مسددة. يُخصم المبلغ تلقائياً عند أول عملية شحن":"The 1000 YER service is available if your last transaction (purchase or top-up) was 5000 YER or more, and you have no unpaid previous loan. The amount is deducted automatically at your first top-up",
+"7. عجلة الحظ":"7. Lucky wheel","محاولة واحدة كل 24 ساعة. الجوائز رصيد داخل التطبيق فقط ولا تُصرف نقداً":"One try every 24 hours. Prizes are in-app credit only and are not paid in cash",
+"8. الاستخدام المحظور":"8. Prohibited use","يُمنع التلاعب أو محاولة اختراق التطبيق أو إنشاء حسابات متعددة، وللإدارة إيقاف الحساب وإلغاء أي رصيد ناتج عن مخالفة":"Manipulation, hacking attempts or creating multiple accounts are prohibited; the admin may suspend the account and cancel any balance resulting from a violation",
+"9. الخصوصية":"9. Privacy","نحفظ بريدك ورقم هاتفك واسمك وسجل عملياتك لتشغيل الخدمة فقط، ولا نشاركها مع أي جهة أخرى":"We store your email, phone number, name and transaction history only to run the service, and do not share them with anyone else",
+"10. الدعم والتعديل":"10. Support and changes","للتواصل أرسل تذكرة من صفحة الدعم الفني. يحق للإدارة تعديل هذه الشروط، واستمرارك في الاستخدام يعني موافقتك على التعديل":"To contact us, send a ticket from the support page. The admin may change these terms, and continuing to use the app means you accept the changes",
+"حول التطبيق":"About the app","الإصدار 1.0":"Version 1.0","محفظة رقمية لشراء كروت الباقات وإدارة رصيدك بسهولة. هذه مزايا التطبيق":"A digital wallet for buying package cards and managing your balance easily. Here are the app features",
+"تصفح الباقات بخصم 10% مع عدد الكروت المتوفرة. ابحث عن باقة، وأضف المفضلة بالنجمة، وحدّد الكمية (1 أو أكثر). يتحقق السيرفر من رصيدك والمخزون، ثم تظهر شاشة تأكيد وبعدها شاشة الكود مع زر النسخ":"Browse packages with a 10% discount and see how many cards are available. Search for a package, favorite it with the star, and choose a quantity (1 or more). The server checks your balance and stock, then a confirmation screen appears, followed by the code screen with a copy button",
+"يحفظ كل الكروت التي اشتريتها، مع زر لنسخ الكل":"Keeps every card you bought, with a button to copy all",
+"حوّل المبلغ ثم أرسل إشعار التحويل بالمبلغ بالضبط، وتضيفه الإدارة لرصيدك بعد المراجعة":"Transfer the money, then send a transfer notice with the exact amount; the admin adds it to your balance after review",
+"أرسل جزءاً من رصيدك لحساب آخر برقم هاتفه فوراً":"Send part of your balance to another account instantly using their phone number",
+"سلفة طارئة 1000 ريال تُخصم تلقائياً عند أول شحن. تظهر لك حالتك قبل الطلب (مؤهل، أو عليك سلفة سابقة)، ويعرض السجل سلفك السابقة":"An emergency 1000 YER loan deducted automatically at your first top-up. You see your status before requesting (eligible, or you have a previous loan), and the history shows your past loans",
+"جرّب حظك مرة كل 24 ساعة واربح رصيداً مجانياً، مع عدّاد تنازلي للمحاولة القادمة":"Try your luck once every 24 hours and win free credit, with a countdown to the next try",
+"سجل كامل لحركاتك (شراء، شحن، تحويل، سلف، جوائز) مع تصفية بالتاريخ، وإجمالي الوارد والمنصرف، وتصدير إكسل وطباعة":"A complete record of your activity (purchases, top-ups, transfers, loans, prizes) with date filtering, total received and spent, Excel export and printing",
+"اكتب عنوان المشكلة وتفاصيلها وأرسلها، وسيرد عليك المطوّر في نفس التذكرة":"Write the issue title and details and send them; the developer will reply in the same ticket",
+"الإعدادات والثيمات":"Settings and themes","غيّر الثيم والألوان وحجم الخط واسم التطبيق والشعار بما يناسبك":"Change the theme, colors, font size, app name and logo to suit you",
+"الأمان":"Security","الدخول بالبريد والاسم الرباعي، وكل حساب مرتبط بجهاز واحد، وجميع العمليات تُنفَّذ وتُتحقق في السيرفر":"Login with email and full name, each account is tied to one device, and all operations are executed and verified on the server",
+"تصفح الباقات والأسعار دون حساب (للتصفح فقط)":"Browse packages and prices without an account (browse only)",
+"لا توجد إشعارات":"No notifications","جميع المستخدمين":"All users","بحث بالاسم أو الرقم أو البريد":"Search by name, number or email","إرسال إشعار لجميع المستخدمين":"Send a notification to all users","اكتب نص الإشعار":"Write the notification text","إرسال للجميع":"Send to all",
+"طلبات الشحن المعلقة":"Pending top-up requests","اعتماد":"Approve","لا توجد طلبات":"No requests","تذاكر الدعم":"Support tickets","اكتب ردك":"Write your reply","إرسال الرد":"Send reply","إضافة كروت":"Add cards","كرت في كل سطر":"One card per line","إضافة":"Add",
+"البريد الإلكتروني (لا يمكن تعديله)":"Email (cannot be changed)","رقم الهاتف":"Phone number","الاسم الرباعي":"Full name","كلمة المرور الحالية لتأكيد تغيير الاسم":"Current password to confirm the name change","حفظ الاسم":"Save name",
+"الاسم الرباعي هو مفتاح دخولك، فاحفظه كما كتبته بفواصله ونقاطه. أي تلاعب فيه يعرّضك للحظر 5 دقائق":"Your full name is your login key, so keep it exactly as typed, with its commas and dots. Any tampering with it will get you banned for 5 minutes",
+"تغيير كلمة المرور":"Change password","كلمة المرور الحالية":"Current password","كلمة المرور الجديدة":"New password","تأكيد كلمة المرور الجديدة":"Confirm new password","التفضيلات":"Preferences",
+"إخفاء الرصيد افتراضياً عند فتح التطبيق":"Hide balance by default when opening the app","التحكم في الثيم":"Theme control","ألوان مخصصة":"Custom colors","لون التمييز":"Accent color","الخلفية":"Background","البطاقات":"Cards","الشريط العلوي":"Top bar",
+"الشعار والاسم":"Logo and name","اسم التطبيق":"App name","ارفع شعارك الخاص (يُحفظ على هذا الجهاز)":"Upload your own logo (saved on this device)","إزالة الشعار":"Remove logo","استعادة الإعدادات الافتراضية":"Restore default settings","اللغة / Language":"Language",
+"الرصيد الحالي":"Current balance","إجمالي المنصرف":"Total spent","إجمالي الوارد":"Total received","النوع":"Type","البيان":"Description","المبلغ":"Amount","التاريخ":"Date",
+"سجّل الدخول أولاً للشراء":"Log in first to buy","الكمية يجب أن تكون 1 أو أكثر":"Quantity must be 1 or more","تم النسخ":"Copied","العجلة جاهزة! جرّب حظك الآن":"The wheel is ready! Try your luck now","حظاً أوفر غداً":"Better luck tomorrow",
+"تنبيه":"Alert","رفع الحظر":"Unban","حظر":"Ban","محظور":"Banned","نص التنبيه للمستخدم":"Alert text for the user","سبب الحظر (سيظهر للمستخدم)":"Ban reason (will be shown to the user)","انتهى الحظر":"Ban ended",
+"وضع الزائر (تصفح فقط)":"Guest mode (browse only)","دخول":"Log in","إظهار أو إخفاء كلمة المرور":"Show or hide password","تم حظرك مؤقتاً":"You are temporarily banned","تم حظر حسابك":"Your account is banned",
+"عنابي ذهبي":"Maroon Gold","زمردي":"Emerald","أزرق محيطي":"Ocean Blue","بنفسجي":"Violet","فاتح":"Light","قرمزي":"Crimson","غروب":"Sunset","فيروزي":"Teal","غابة":"Forest","منتصف الليل":"Midnight","وردي":"Rose","أسود نقي":"Pure Black","نيون":"Neon","موكا":"Mocha","رمادي هادئ":"Calm Gray","سماوي فاتح":"Light Sky","نعناعي فاتح":"Light Mint","وردي فاتح":"Light Blush","لافندر فاتح":"Light Lavender",
+"سداد السلفة":"Loan repayment","شحن رصيد":"Balance top-up","سلفة طارئة":"Emergency loan","جائزة عجلة الحظ":"Lucky wheel prize",
+"إدخال أرقام داخل الاسم الرباعي":"Entering numbers inside the full name","إدخال رموز غير مسموحة داخل الاسم الرباعي":"Entering disallowed symbols inside the full name","تكرار الأحرف بشكل مصطنع في الاسم الرباعي":"Artificially repeated characters in the full name","تكرار الكلمة نفسها في الاسم الرباعي":"Repeating the same word in the full name","اسم رباعي أطول من المعقول":"A full name that is unreasonably long","محاولات متكررة بإدخال اسم رباعي غير مطابق للحساب":"Repeated attempts with a full name that does not match the account",
+"أدخل الاسم الرباعي كاملاً":"Enter your complete full name","محاولات خاطئة كثيرة. حاول بعد 15 دقيقة":"Too many wrong attempts. Try again in 15 minutes",
+"هذا رقم الإدارة ولا يمكنك التسجيل به إلا بإدخال كلمة السر":"This is the admin number and you can only register with it by entering the password","هذا حساب الإدارة ولا يمكنك الدخول إلا بإدخال كلمة السر":"This is the admin account and you can only log in by entering the password","كلمة السر غير صحيحة":"Incorrect password",
+"البريد الإلكتروني غير صحيح":"Invalid email address","رقم الهاتف يجب أن يكون 9 أرقام ويبدأ بـ 7":"The phone number must be 9 digits and start with 7","كلمة المرور 6 أحرف على الأقل":"Password must be at least 6 characters","تأكيد كلمة المرور غير مطابق":"Password confirmation does not match",
+"هذا الرقم أو البريد مسجل لدينا مسبقاً، انتقل إلى صفحة تسجيل الدخول":"This number or email is already registered; go to the login page","هذا الجهاز مسجل بحساب مسبق":"This device is already registered with an account","هذا البريد غير مسجل، انتقل إلى صفحة إنشاء حساب":"This email is not registered; go to the sign-up page",
+"الباقة غير موجودة":"Package not found","الكمية يجب أن تكون 1 أو أكثر (حتى 50)":"Quantity must be 1 or more (up to 50)","رصيدك غير كافٍ":"Insufficient balance","تمت العملية":"Done",
+"خدمة السلفة (1000 ريال) متاحة فقط إذا كانت آخر معاملة لك 5000 ريال أو أكثر":"The loan service (1000 YER) is only available if your last transaction was 5000 YER or more","تمت إضافة 1000 ريال، ستُخصم تلقائياً عند أول شحن":"1000 YER was added; it will be deducted automatically at your first top-up",
+"رقم المستلم غير مسجل":"The recipient number is not registered","لا يمكنك التحويل لنفسك":"You cannot transfer to yourself","أدخل مبلغاً صحيحاً":"Enter a valid amount","تم التحويل":"Transfer completed","أدخل المبلغ الذي حولته بالضبط":"Enter the exact amount you transferred",
+"تم إرسال الطلب وسيُراجع قريباً":"Request sent; it will be reviewed soon","يمكنك الدوران مرة كل 24 ساعة":"You can spin once every 24 hours","اكتب عنوان المشكلة وتفاصيلها":"Write the issue title and details","تم إرسال التذكرة وسيتم الرد عليك هنا":"Ticket sent; you will get a reply here",
+"التذكرة غير موجودة":"Ticket not found","اكتب الرد أولاً":"Write the reply first","تم إرسال الرد":"Reply sent","كلمة المرور الحالية غير صحيحة":"The current password is incorrect","تم حفظ الاسم. استخدمه الآن في تسجيل الدخول":"Name saved. Use it now to log in",
+"كلمة المرور الجديدة 6 أحرف على الأقل":"The new password must be at least 6 characters","تم تغيير كلمة المرور":"Password changed","المستخدم غير موجود":"User not found","تم إرسال التنبيه للمستخدم":"Alert sent to the user","تم إرسال الإشعار لجميع المستخدمين":"Notification sent to all users",
+"لا يمكن حظر حساب الإدارة":"The admin account cannot be banned","تم رفع الحظر":"Ban lifted","اكتب سبب الحظر":"Write the ban reason","تم حظر المستخدم":"User banned","الطلب غير موجود":"Request not found","تم الشحن":"Top-up completed","باقة غير صحيحة":"Invalid package",
+"انتهت الجلسة، سجّل الدخول مجدداً":"Session expired, please log in again","غير مصرح":"Not authorized","خطأ في الخادم":"Server error"
+};
+const RX=[
+[/^باقة (\d+)$/,"Package $1"],[/^متوفر: (\d+)$/,"Available: $1"],[/^خصم (\d+)$/,"Discount $1"],[/^([\d.,]+) ريال$/,"$1 YER"],[/^الكمية: (\d+)$/,"Quantity: $1"],
+[/^المبلغ: ([\d.,]+) ريال$/,"Amount: $1 YER"],[/^الرصيد: ([\d.,]+) ريال$/,"Balance: $1 YER"],[/^السبب: ([\s\S]+)$/,(m,a)=>"Reason: "+tr(a)],
+[/^ربحت (\d+) ريال$/,"You won $1 YER"],[/^الدوران القادم بعد ([\d:]+)$/,"Next spin in $1"],[/^حجم الخط: (\d+)$/,"Font size: $1"],[/^جميع المستخدمين \((\d+)\)$/,"All users ($1)"],
+[/^رددت: ([\s\S]+)$/,"You replied: $1"],[/^رد الإدارة: ([\s\S]+)$/,"Admin reply: $1"],[/^شراء (\d+) × باقة (\d+)$/,"Bought $1 × package $2"],
+[/^تحويل (إلى|من) (\S+)$/,(m,a,b)=>(a==="إلى"?"Transfer to ":"Transfer from ")+b],[/^أُضيف (\d+) كرت$/,"Added $1 cards"],
+[/^تم حظرك لمدة 5 دقائق\. السبب: ([\s\S]+)$/,(m,a)=>"You are banned for 5 minutes. Reason: "+tr(a)],
+[/^أنت محظور مؤقتاً\. السبب: ([\s\S]+)$/,(m,a)=>"You are temporarily banned. Reason: "+tr(a)],
+[/^تم حظر حسابك من قبل الإدارة\. السبب: ([\s\S]+)$/,(m,a)=>"Your account was banned by the admin. Reason: "+tr(a)],
+[/^الاسم غير مطابق لما سُجّل سابقاً\. انتبه للفواصل والنقاط \(متبقي (\d+) محاولات\)$/,"The name does not match what was registered. Mind the commas and dots ($1 attempts left)"],
+[/^الكمية المطلوبة غير متوفرة\. المتوفر: (\d+)$/,"The requested quantity is not available. Available: $1"],
+[/^رصيدك غير كافٍ\. المطلوب ([\d.,]+) ريال ورصيدك ([\d.,]+) ريال$/,"Insufficient balance. Required $1 YER and your balance is $2 YER"],
+[/^عليك سلفة سابقة غير مسددة \(([\d.,]+) ريال\)\. سدّدها بشحن رصيدك ليُخصم المبلغ تلقائياً، وبعدها يمكنك طلب سلفة جديدة$/,"You have an unpaid previous loan ($1 YER). Repay it by topping up so the amount is deducted automatically, then you can request a new loan"]
+];
+const EDGE=/^((?:[^\p{L}\p{N}()\p{M}]|[\uFE0F\u200D\u2139])*)([\s\S]*?)((?:[^\p{L}\p{N}()\p{M}]|[\uFE0F\u200D\u2139])*)$/u;
+const fp=x=>x.replace(/؟/g,'?').replace(/،/g,',');
+function core(k){
+ if(EN[k]!==undefined)return EN[k];
+ for(const [r,v] of RX)if(r.test(k))return k.replace(r,v);
+ for(const sp of [' | ',' · '])if(k.includes(sp)){const ps=k.split(sp);if(ps.some(p=>/[\u0600-\u06FF]/.test(p)))return ps.map(p=>tr(p)).join(sp)}
+ return null}
+function tr(s){if(LANG()!=='en'||!s)return s;const m=s.match(EDGE);if(!m||!m[2])return s;const o=core(m[2]);return o===null?s:fp(m[1])+o+fp(m[3])}
+function trDom(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const v=tr(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v}
+ if(root.querySelectorAll)root.querySelectorAll('[placeholder],[aria-label],[title]').forEach(e=>['placeholder','aria-label','title'].forEach(a=>{const v=e.getAttribute(a);if(v){const t=tr(v);if(t!==v)e.setAttribute(a,t)}}))}
+/* ====== end i18n ====== */
+function theme(){const p={...PRESETS[CFG.preset],...CFG.over},r=document.documentElement.style;r.removeProperty('--inp');for(const k in p)if(k!='n')r.setProperty('--'+k,p[k]);r.setProperty('--fs',CFG.fs+'px');document.documentElement.lang=LANG();document.documentElement.dir=LANG()==='en'?'ltr':'rtl';document.title=tr(CFG.name);$('meta[name=theme-color]').content=p.acc2}
+const saveCfg=()=>{localStorage.setItem('cfg',JSON.stringify(CFG));theme()};
+const logo=()=>CFG.logo?`<img src="${CFG.logo}" alt="">`:`<svg viewBox="0 0 120 130"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2bb3e8"/><stop offset="1" stop-color="#5ed36b"/></linearGradient></defs><path d="M60 6 108 24v38c0 32-22 52-48 62C34 114 12 94 12 62V24Z" fill="none" stroke="url(#lg)" stroke-width="8" stroke-linejoin="round"/><g fill="none" stroke="url(#lg)" stroke-width="7" stroke-linecap="round"><path d="M32 58Q60 32 88 58"/><path d="M43 70Q60 54 77 70"/></g><circle cx="60" cy="84" r="6" fill="url(#lg)"/></svg>`;
+/* ====== الحالة والاتصال ====== */
+let S={token:localStorage.getItem('tk'),user:null,view:'home',tab:'login',msg:null,hide:CFG.hide!==false,drawer:false,guest:false,q:'',favOnly:false,pk:[]};
+const dev=localStorage.getItem('dev')||(localStorage.setItem('dev',crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),localStorage.getItem('dev'));
+/* إذا استضفت هذه الصفحة على GitHub Pages ضع هنا رابط السيرفر، مثل: 'https://wallet-app.onrender.com' (بدون / في النهاية). اتركه فارغاً إذا فتحت التطبيق من رابط السيرفر نفسه. */
+const API_BASE='';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+/* الاستضافات المجانية تنام ثم تصحو خلال ~دقيقة: نعيد المحاولة تلقائياً إذا رجعت صفحة انتظار (HTML) أو خطأ بوابة، ولا نعيد الطلبات المالية إلا إذا لم يصل الطلب للسيرفر */
+async function raw(p,body){for(let i=0;;i++){let r,t;try{r=await fetch(API_BASE+'/api/'+p,{method:body?'POST':'GET',headers:{'Content-Type':'application/json',Authorization:'Bearer '+S.token},body:body?JSON.stringify({...body,deviceId:dev}):undefined});t=await r.text()}catch(e){if(!body&&i<12){await sleep(6000);continue}throw e}
+ try{return JSON.parse(t)}catch(e){if(i<12&&(t.trim().startsWith('<')||[502,503,504].includes(r.status))){await sleep(6000);continue}throw e}}}
+let busy=0;const ld=d=>{busy+=d;$('#ld').style.display=busy>0?'flex':'none'};
+async function api(p,body){let on=0,tm,t0=Date.now();if(body){on=1;ld(1)}else tm=setTimeout(()=>{on=1;ld(1)},250);try{const j=await raw(p,body);if(j.code==='AUTH')logout();if(j.code==='BAN'||j.code==='BANNED'){S.ban={code:j.code,msg:j.msg,left:j.left||0,t:Date.now()};if(j.code==='BANNED'){localStorage.removeItem('tk');S.token=null;S.user=null}}if(j.msg==='غير موجود')j.msg='السيرفر يعمل بنسخة قديمة. استبدل server.js بالنسخة الجديدة، ثم أوقف السيرفر (Ctrl+C) وشغّله من جديد.';return j}catch(e){return{ok:false,msg:'تعذر الاتصال بالخادم. شغّل server.js وافتح التطبيق من عنوانه (مثل http://localhost:3000) وليس من الملف أو المعاينة مباشرة.',txs:[],packages:[],cards:[],list:[],tickets:[]}}finally{clearTimeout(tm);if(body){const w=500-(Date.now()-t0);if(w>0)await new Promise(z=>setTimeout(z,w))}if(on)ld(-1)}}
+const logout=()=>{localStorage.removeItem('tk');S={...S,token:null,user:null,tab:'login',drawer:false,menu:false,view:'home',msg:null};render()};
+const flash=(m,ok)=>{S.msg=m?{m,ok}:null};
+const msgHtml=()=>S.msg?`<div class="msg ${S.msg.ok?'ok':''}" role="alert">${esc(S.msg.m)}</div>`:'';
+function go(v){S.view=v;S.msg=null;S.drawer=false;S.menu=false;render()}
+async function refresh(){const r=await api('me');if(r.ok)S.user=r.user}
+/* ====== الدخول ====== */
+function authView(){const reg=S.tab==='reg';if(S.ask)return `<div class="title gt" style="margin-top:calc(env(safe-area-inset-top) + 40px)">${esc(CFG.name)}</div><div class="box">${msgHtml()}<h2>🔐 رقم الإدارة</h2><input id="ak" type="password" placeholder="كلمة السر" autocomplete="off"><button onclick="${S.ask==='reg'?'doReg':'doLogin'}(val('ak'))">تأكيد</button><button class="ghost" style="margin-top:10px" onclick="S.ask=null;S.msg=null;render()">رجوع</button></div>`;return `<div class="title gt" style="margin-top:calc(env(safe-area-inset-top) + 40px)">${esc(CFG.name)}</div><div class="tag" style="text-align:center;direction:ltr">V1.0 Ultra</div><div style="text-align:center;margin:8px 0"><button class="ghost sm" onclick="setLang('${LANG()==='ar'?'en':'ar'}')">${LANG()==='ar'?'English':'العربية'}</button></div>
+<div class="tabs"><button class="${reg?'':'on'}" onclick="S.tab='login';S.msg=null;render()">تسجيل الدخول</button><button class="${reg?'on':''}" onclick="S.tab='reg';S.msg=null;render()">حساب جديد</button></div>
+<div class="box" style="border-radius:0 0 26px 26px;margin-top:0">${msgHtml()}
+<input id="email" type="email" placeholder="البريد الإلكتروني" dir="ltr" value="${esc(localStorage.getItem('em')||'')}">
+${reg?`<input id="phone" inputmode="numeric" maxlength="9" placeholder="رقم الهاتف (7XXXXXXXX)" dir="ltr"><input id="name" placeholder="الاسم الرباعي (بنفس الفواصل والنقاط)"><input id="pw" type="password" placeholder="كلمة المرور"><input id="pw2" type="password" placeholder="تأكيد كلمة المرور"><p class="tag">احفظ اسمك الرباعي كما كتبته تماماً؛ هو مفتاح الدخول واسترجاع الحساب.</p><button onclick="doReg()">إنشاء الحساب</button>`
+:`<input id="name" placeholder="الاسم الرباعي كما سجلته"><label class="row" style="border:0;justify-content:flex-end"><span>تذكرني (مفعل دائماً لراحتك)</span><input type="checkbox" id="rem" checked></label><button onclick="doLogin()">تسجيل الدخول</button>
+<p style="text-align:center"><a href="#" style="color:var(--txt);font-weight:700" onclick="flash('لاسترجاع الحساب أدخل بريدك واسمك الرباعي كما سجلته، أو تواصل مع الدعم.');render();return false">نسيت كلمة المرور؟</a></p>
+<button class="ghost" style="background:#3331;color:var(--txt);border-color:var(--line)" onclick="S.guest=true;render()">👀 دخول زائر (للتصفح فقط)</button>`}</div>`}
+async function doLogin(ak){const f=ak!==undefined?S.f:(S.f={email:val('email'),name:val('name')});const r=await api('login',{...f,adminKey:ak});if(r.ok)localStorage.setItem('em',f.email);afterAuth(r,'login')}
+async function doReg(ak){const f=ak!==undefined?S.f:(S.f={email:val('email'),phone:val('phone').trim(),name:val('name'),password:val('pw'),confirm:val('pw2')});afterAuth(await api('register',{...f,adminKey:ak}),'reg')}
+function afterAuth(r,from){if(r.ok){S.token=r.token;S.user=r.user;localStorage.setItem('tk',r.token);S.view='home';S.msg=null;S.ask=null;S.f=null}else{flash(r.msg);S.ask=r.code==='ADMIN'?from:null;if(r.code==='NOUSER')S.tab='reg';if(r.code==='EXISTS')S.tab='login'}render()}
+/* ====== الهيكل ====== */
+const tiles=[['store','🛒','متجر الباقات'],['recharge','➕','شحن الرصيد'],['transfer','💸','تحويل رصيد'],['cards','💳','سجل كروتي'],['wheel','🎡','عجلة الحظ'],['statement','📝','كشف الحساب'],['loan','💰','خدمة سلفني'],['support','🎫','الدعم الفني']];
+function shell(body){const u=S.user,adm=u.role==='admin',need=Math.max(0,5000-u.balance);
+return `<div class="hd"><button class="av g" onclick="S.drawer=true;render()" aria-label="القائمة">👤</button><div class="nm">${esc(u.name)}<small><i class="dot"></i>مرحبا بك ..</small></div><button class="ib g" style="position:relative" onclick="go('notifs')" aria-label="الإشعارات">🔔${u.unread?`<span class="bdg">${u.unread}</span>`:''}</button><button class="kb" onclick="S.menu=!S.menu;render()" aria-label="المزيد">⋮</button>${S.menu?`<div class="mnb" onclick="S.menu=false;render()"></div><div class="mn"><button onclick="go('settings')">⚙️ الإعدادات</button><button onclick="go('terms')">📜 الشروط والأحكام</button><button onclick="go('about')">ℹ️ حول التطبيق</button><button style="color:var(--bad)" onclick="logout()">🚪 تسجيل الخروج</button></div>`:''}</div>
+<div class="bc"><div class="p"><div class="num">${esc(u.phone)}</div><div>الرصيد المتاح 💳</div><div class="bal"><button class="eye" onclick="S.hide=!S.hide;render()" aria-label="إظهار الرصيد">${S.hide?'👁️':'🙈'}</button><small style="font-size:.5em;font-weight:400">ريال</small><span>${S.hide?'****':money(u.balance)}</span></div></div>
+<div class="bar"><button onclick="go('home')">الرئيسية</button><button class="qr" onclick="cp('${esc(u.phone)}')" aria-label="نسخ الرقم">▦</button><button onclick="go('statement')">كشف الحساب</button></div></div>
+<div class="promo">🎁 أثناء عمليات شراء الباقات يمكنك الحصول على باقة مميزة!</div>
+${S.view!=='home'?`<button class="ghost back" onclick="go('home')">القائمة الرئيسية 🔙</button>`:''}${msgHtml()}${body}
+<div class="fab"><button onclick="go('support')" aria-label="مساعدة">?</button></div>
+${S.drawer?`<div class="dr" onclick="S.drawer=false;render()"><div onclick="event.stopPropagation()"><div class="av g">👤</div><h2 style="color:var(--txt)">${esc(u.name)}</h2><div style="color:var(--acc);letter-spacing:2px">${esc(u.phone)}</div><div style="color:var(--ok);margin:8px">👤 ${adm?'مطوّر':'عميل عادي'}</div><hr style="border-color:var(--line);margin:22px 0">
+<button class="it" onclick="share()">📥 مشاركة التطبيق</button><button class="it" onclick="go('settings')">⚙️ إعدادات الحساب</button><button class="lo" onclick="logout()">🚪 تسجيل الخروج</button></div></div>`:''}`}
+const share=()=>{S.drawer=false;navigator.share?navigator.share({title:CFG.name,url:location.href}):(navigator.clipboard&&navigator.clipboard.writeText(location.href),flash('تم نسخ رابط التطبيق',true));render()};
+/* ====== الصفحات ====== */
+const typeName={buy:'شراء',recharge:'شحن',transfer_in:'تحويل وارد',transfer_out:'تحويل صادر',loan:'سلفة',loan_repay:'سداد سلفة',prize:'جائزة'},INC=['recharge','transfer_in','loan','prize'];
+const stm=t=>t.length?t.map(x=>{const i=INC.includes(x.type);return `<div class="row"><b class="${i?'in':'out'}">${i?'+':'-'}${money(x.amount)}</b><span style="text-align:end">${typeName[x.type]} | ${esc(x.note)}<br><span class="tag">${x.at.slice(0,16).replace('T',' ')}</span></span></div>`}).join(''):'<p class="tag" style="text-align:center">لا توجد عمليات.</p>';
+const fav=()=>JSON.parse(localStorage.getItem('fav')||'[]');
+const pkHtml=()=>{const f=fav(),q=S.q.trim();return S.pk.filter(p=>(!S.favOnly||f.includes(p.id))&&(!q||String(p.id).includes(q))).map(p=>`<div class="pk"><i class="off">خصم 10%</i><div class="pn"><button class="st ${f.includes(p.id)?'on':''}" onclick="togFav(${p.id})" aria-label="مفضلة">★</button>باقة ${p.id}</div><div class="avl">متوفر: ${p.stock}</div><div class="old">${money(p.old)} ريال</div><div class="pr">${money(p.price)} ريال</div><input id="q${p.id}" type="number" min="1" value="1" aria-label="الكمية"><button onclick="ask(${p.id})">شراء</button></div>`).join('')||'<p class="tag">لا توجد نتائج.</p>'};
+const drawPk=()=>$('#pk').innerHTML=pkHtml();
+function togFav(id){let f=fav();f=f.includes(id)?f.filter(x=>x!=id):[...f,id];localStorage.setItem('fav',JSON.stringify(f));drawPk()}
+const views={
+home:async()=>{const r=await api('statement');return `<div class="tiles">${tiles.concat(S.user.role==='admin'?[['admin','🛠️','لوحة المطوّر']]:[]).map(t=>`<button class="tile ${t[0]==='cards'?'hl':''}" onclick="go('${t[0]}')"><span>${t[1]}</span>${t[2]}</button>`).join('')}</div><div class="box"><h2 style="text-align:start">⏳ أحدث العمليات</h2>${stm(r.txs.slice(0,5))}</div>`},
+async store(){const r=await api('packages');S.pk=r.packages;return `<div style="display:flex;gap:10px;align-items:center"><button class="ghost sm" style="padding:22px 18px" onclick="S.favOnly=!S.favOnly;this.style.opacity=S.favOnly?1:.6;drawPk()" aria-label="المفضلة">★</button><input id="sq" placeholder="🔍 بحث عن كرت..." oninput="S.q=this.value;drawPk()" value="${esc(S.q)}"></div><div class="pgrid" id="pk" style="margin-top:14px">${pkHtml()}</div>`},
+async cards(){const r=await api('mycards');window._codes=r.cards.map(c=>c.code).join('\n');return `<button class="grn" style="margin-bottom:10px" onclick="cp(window._codes)">📋 نسخ الكل</button><div class="box">${r.cards.length?r.cards.map(c=>`<div class="row"><code>${esc(c.code)}</code><span>باقة ${c.pkg}</span></div>`).join(''):'<p class="tag" style="text-align:center">لا توجد كروت بعد.</p>'}</div>`},
+recharge:()=>`<div class="box"><h2>إشعار تحويل</h2><div class="dash"><div class="tag">الاسم المسجل لدينا:</div><b style="color:var(--acc)">${esc(S.user.name)}</b></div><input id="amt" type="number" placeholder="ادخل المبلغ الذي حولته بالضبط"><button class="grn" style="margin-top:14px" onclick="act('recharge',{amount:val('amt')})">🚀 إرسال الطلب</button></div>`,
+transfer:()=>`<div class="box"><h2>تحويل رصيد الى حساب آخر</h2><input id="ph" inputmode="numeric" placeholder="رقم هاتف المستلم"><input id="amt" type="number" placeholder="المبلغ المراد تحويله"><button onclick="act('transfer',{phone:val('ph'),amount:val('amt')})">إرسال الرصيد الآن</button></div>`,
+async loan(){const r=await api('loan'),H=r.history||[];const st=!r.ok?`<div class="msg">تعذر تحميل حالة الخدمة: ${esc(r.msg||'')}</div>`:r.active?`<div class="msg"><b>⚠️ عليك سلفة سابقة غير مسددة</b><br>المبلغ: ${money(r.amount)} ريال<br>لا يمكنك طلب سلفة جديدة قبل سدادها. لسدادها اشحن رصيدك وسيُخصم المبلغ تلقائياً من أول شحن، ثم تستطيع طلب سلفة جديدة.</div><button class="ghost" style="margin-top:8px" onclick="go('recharge')">➕ شحن الرصيد لسداد السلفة</button>`:r.eligible?`<div class="msg ok">✅ أنت مؤهل للحصول على سلفة 1000 ريال.</div>`:`<div class="msg">لست مؤهلاً حالياً: تتوفر السلفة (1000 ريال) إذا كانت آخر معاملة لك 5000 ريال أو أكثر.</div>`;return `<div class="box"><h2>💰 خدمة سلفني للطوارئ</h2><p style="text-align:center">احصل على رصيد فوري وسدده لاحقاً عند الشحن.</p><div class="dash"><b>حالة الخدمة</b>${st}<p style="color:var(--acc2)">سيتم خصم المبلغ تلقائياً عند أول عملية شحن.</p></div><button ${r.active||!r.eligible?'style="opacity:.6"':''} onclick="act('loan',{})">طلب سلفة فورية</button></div><div class="box"><h2 style="text-align:start">سجل السلف</h2>${H.length?H.map(x=>`<div class="row"><b class="${x.settled?'in':'out'}">${x.settled?'مسددة':'غير مسددة'}</b><span>${money(x.amount)} ريال <span class="tag">${x.at.slice(0,10)}</span></span></div>`).join(''):'<p class="tag" style="text-align:center">لا توجد سلف سابقة.</p>'}</div>`},
+async wheel(){const r=await api('wheel');S.wl=r.left||0;return `<div class="box" style="text-align:center"><h2>🎡 عجلة الحظ اليومية</h2><p>جرب حظك واربح رصيد مجاني كل 24 ساعة!</p><div class="ptr"></div><div class="wheel" id="wh"></div><div id="cd" class="pr" style="font-size:1.2em"></div><button id="sb" onclick="spin()">أدر</button></div>`},
+async statement(){const r=await api('statement');S.txs=r.txs;return `<div class="box"><h2>📝 كشف الحساب التفصيلي</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="t" type="date" aria-label="إلى"><input id="f" type="date" aria-label="من"></div><button class="g" style="background:#00ff88" onclick="filt()">📥 استعلام السجل</button><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0"><button class="gry" onclick="print()">🖨️ طباعة</button><button class="grn" onclick="csv()">📊 إكسل</button></div></div><div id="stm" class="box">${stats(r.txs)}${stm(r.txs)}</div>`},
+async support(){const r=await api('tickets');const L=r.tickets||[];return `<div class="box"><h2>🎫 فتح تذكرة جديدة</h2><input id="tt" maxlength="100" placeholder="عنوان المشكلة"><textarea id="tb" rows="6" maxlength="1000" style="text-align:start" placeholder="تفاصيل المشكلة..."></textarea><button onclick="sendTicket()">إرسال التذكرة</button></div><div class="box"><h2 style="text-align:start">تذاكري السابقة</h2>${L.length?L.map(k=>`<div style="border-bottom:1px solid var(--line);padding:10px 0"><b>${esc(k.title)}</b> <span class="tag">${k.at.slice(0,16).replace('T',' ')}</span><div class="tag">${esc(k.body)}</div>${k.replies.map(x=>`<div class="msg ok">💬 رد الإدارة: ${esc(x.text)}</div>`).join('')||'<div class="tag">⏳ بانتظار الرد</div>'}</div>`).join(''):'<p class="tag" style="text-align:center">لا توجد تذاكر.</p>'}</div>`},
+confirm(){const p=S.pend;return `<div class="box" style="text-align:center"><h2>تأكيد الشراء</h2><div class="dash"><b>باقة ${p.id}</b><br>الكمية: ${p.q}<br><span class="pr">${money(p.total)} ريال</span></div><button onclick="confirmBuy()">تأكيد الشراء</button><button class="ghost" style="margin-top:10px" onclick="go('store')">إلغاء</button></div>`},
+bought(){const b=S.bought;return `<div class="box" style="text-align:center"><h2>✅ تمت عملية الشراء</h2><p class="tag">باقة ${b.id} · انسخ الكود واستخدمه</p>${b.codes.map(c=>`<div class="row"><button class="sm" onclick="cp('${esc(c)}')">نسخ</button><code style="font-size:1.3em">${esc(c)}</code></div>`).join('')}${b.codes.length>1?`<button class="grn" style="margin-top:12px" onclick="cp('${b.codes.map(esc).join('\\n')}')">📋 نسخ الكل</button>`:''}<button class="ghost" style="margin-top:10px" onclick="go('store')">العودة للمتجر</button></div>`},
+terms(){return `<div class="box doc"><h2>📜 الشروط والأحكام</h2>
+<p><b>1. القبول:</b> باستخدامك التطبيق أو إنشاء حساب فيه فأنت توافق على هذه الشروط.</p>
+<p><b>2. الحساب:</b> يجب أن تكون بيانات التسجيل (البريد ورقم الهاتف والاسم الرباعي) صحيحة. الاسم الرباعي بفواصله ونقاطه هو مفتاح دخولك واسترجاع حسابك، وأنت مسؤول عن حفظه وعدم مشاركته.</p>
+<p><b>3. الجهاز:</b> يُسمح بحساب واحد لكل جهاز، ولا يمكن تسجيل حساب آخر من الجهاز نفسه.</p>
+<p><b>4. شحن الرصيد:</b> يُضاف الرصيد بعد مراجعة الإدارة لإشعار التحويل واعتماده. يجب أن يطابق المبلغ في الإشعار المبلغ المحوَّل فعلاً.</p>
+<p><b>5. شراء الكروت:</b> تُسلَّم الأكواد فور تأكيد الشراء ولا يمكن استرجاعها أو استبدالها بعد التسليم. تأكد من الباقة والكمية قبل التأكيد.</p>
+<p><b>6. السلفة:</b> خدمة 1000 ريال تتوفر إذا كانت آخر معاملة لك (شراء أو شحن) 5000 ريال أو أكثر، وبشرط عدم وجود سلفة سابقة غير مسددة. يُخصم المبلغ تلقائياً عند أول عملية شحن.</p>
+<p><b>7. عجلة الحظ:</b> محاولة واحدة كل 24 ساعة. الجوائز رصيد داخل التطبيق فقط ولا تُصرف نقداً.</p>
+<p><b>8. الاستخدام المحظور:</b> يُمنع التلاعب أو محاولة اختراق التطبيق أو إنشاء حسابات متعددة، وللإدارة إيقاف الحساب وإلغاء أي رصيد ناتج عن مخالفة.</p>
+<p><b>9. الخصوصية:</b> نحفظ بريدك ورقم هاتفك واسمك وسجل عملياتك لتشغيل الخدمة فقط، ولا نشاركها مع أي جهة أخرى.</p>
+<p><b>10. الدعم والتعديل:</b> للتواصل أرسل تذكرة من صفحة الدعم الفني. يحق للإدارة تعديل هذه الشروط، واستمرارك في الاستخدام يعني موافقتك على التعديل.</p></div>`},
+about(){return `<div class="box doc"><h2>ℹ️ حول التطبيق</h2><p style="text-align:center">${esc(CFG.name)} · الإصدار 1.0</p>
+<p>محفظة رقمية لشراء كروت الباقات وإدارة رصيدك بسهولة. هذه مزايا التطبيق:</p>
+<p><b>🛒 متجر الباقات:</b> تصفح الباقات بخصم 10% مع عدد الكروت المتوفرة. ابحث عن باقة، وأضف المفضلة بالنجمة، وحدّد الكمية (1 أو أكثر). يتحقق السيرفر من رصيدك والمخزون، ثم تظهر شاشة تأكيد وبعدها شاشة الكود مع زر النسخ.</p>
+<p><b>💳 سجل كروتي:</b> يحفظ كل الكروت التي اشتريتها، مع زر لنسخ الكل.</p>
+<p><b>➕ شحن الرصيد:</b> حوّل المبلغ ثم أرسل إشعار التحويل بالمبلغ بالضبط، وتضيفه الإدارة لرصيدك بعد المراجعة.</p>
+<p><b>💸 تحويل رصيد:</b> أرسل جزءاً من رصيدك لحساب آخر برقم هاتفه فوراً.</p>
+<p><b>💰 خدمة سلفني:</b> سلفة طارئة 1000 ريال تُخصم تلقائياً عند أول شحن. تظهر لك حالتك قبل الطلب (مؤهل، أو عليك سلفة سابقة)، ويعرض السجل سلفك السابقة.</p>
+<p><b>🎡 عجلة الحظ:</b> جرّب حظك مرة كل 24 ساعة واربح رصيداً مجانياً، مع عدّاد تنازلي للمحاولة القادمة.</p>
+<p><b>📝 كشف الحساب:</b> سجل كامل لحركاتك (شراء، شحن، تحويل، سلف، جوائز) مع تصفية بالتاريخ، وإجمالي الوارد والمنصرف، وتصدير إكسل وطباعة.</p>
+<p><b>🎫 الدعم الفني:</b> اكتب عنوان المشكلة وتفاصيلها وأرسلها، وسيرد عليك المطوّر في نفس التذكرة.</p>
+<p><b>⚙️ الإعدادات والثيمات:</b> غيّر الثيم والألوان وحجم الخط واسم التطبيق والشعار بما يناسبك.</p>
+<p><b>🔒 الأمان:</b> الدخول بالبريد والاسم الرباعي، وكل حساب مرتبط بجهاز واحد، وجميع العمليات تُنفَّذ وتُتحقق في السيرفر.</p>
+<p><b>👀 دخول زائر:</b> تصفح الباقات والأسعار دون حساب (للتصفح فقط).</p></div>`},
+async notifs(){const r=await api('notifs');S.user.unread=0;const L=r.list||[];return `<div class="box"><h2>🔔 الإشعارات</h2>${L.length?L.map(n=>`<div class="row" style="align-items:flex-start"><span style="flex:1">${n.to===null?'📢':'🔔'} ${esc(n.text)}</span><span class="tag">${n.at.slice(0,16).replace('T',' ')}</span></div>`).join(''):'<p class="tag" style="text-align:center">لا توجد إشعارات.</p>'}</div>`},
+async users(){const r=await api('admin/users');S.ul=r.list||[];return `<div class="box"><h2>👥 جميع المستخدمين (${S.ul.length})</h2><input id="uq" placeholder="🔍 بحث بالاسم أو الرقم أو البريد" oninput="S.uq=this.value;drawUsers()" value="${esc(S.uq||'')}"><div id="ul">${usersHtml()}</div></div>`},
+async admin(){const [r,t]=await Promise.all([api('admin/pending'),api('admin/tickets')]);const P=r.list||[],T=t.list||[];return `<div class="box"><h2>📢 إرسال إشعار لجميع المستخدمين</h2><textarea id="bn" rows="3" maxlength="500" style="text-align:start" placeholder="اكتب نص الإشعار..."></textarea><button onclick="act('admin/notify',{text:val('bn')},'admin')">إرسال للجميع</button><button class="ghost" style="margin-top:10px" onclick="go('users')">👥 جميع المستخدمين</button></div><div class="box"><h2>طلبات الشحن المعلقة</h2>${P.length?P.map(x=>`<div class="row"><button class="sm" onclick="act('admin/approve',{id:${x.id}},'admin')">اعتماد</button><span>${esc(x.name)}<br><span class="tag">${esc(x.phone)} · ${money(x.amount)} ريال</span></span></div>`).join(''):'<p class="tag" style="text-align:center">لا توجد طلبات.</p>'}</div><div class="box"><h2>🎫 تذاكر الدعم</h2>${T.length?T.map(k=>`<div style="border-bottom:1px solid var(--line);padding:10px 0"><b>${esc(k.title)}</b><div class="tag">${esc(k.name)} · ${esc(k.phone)} · ${k.at.slice(0,16).replace('T',' ')}</div><p>${esc(k.body)}</p>${k.replies.map(x=>`<div class="msg ok">رددت: ${esc(x.text)}</div>`).join('')}<textarea id="r${k.id}" rows="2" style="text-align:start" placeholder="اكتب ردك..."></textarea><button class="sm" onclick="act('admin/reply',{id:${k.id},text:val('r${k.id}')},'admin')">إرسال الرد</button></div>`).join(''):'<p class="tag" style="text-align:center">لا توجد تذاكر.</p>'}</div><div class="box"><h2>إضافة كروت</h2><select id="ap">${[100,200,300,500,1000,2000,3000,5000,10000].map(p=>`<option>${p}</option>`).join('')}</select><textarea id="cs" rows="5" dir="ltr" placeholder="كرت في كل سطر"></textarea><button onclick="act('admin/cards',{pkg:val('ap'),codes:val('cs')},'admin')">إضافة</button></div>`},
+settings(){const u=S.user,cur={...PRESETS[CFG.preset],...CFG.over};
+const ci=(k,l)=>`<label class="tag">${l}<input type="color" value="${cur[k]}" onchange="setColor('${k}',this.value)"></label>`;
+return `<div class="box"><h2>⚙️ إعدادات الحساب</h2><label class="tag">البريد الإلكتروني (لا يمكن تعديله)</label><input value="${esc(u.email)}" disabled dir="ltr"><label class="tag">رقم الهاتف</label><input value="${esc(u.phone)}" disabled dir="ltr"><label class="tag">الاسم الرباعي</label><input id="pn" value="${esc(u.name)}"><input id="pnp" type="password" placeholder="كلمة المرور الحالية لتأكيد تغيير الاسم"><button onclick="saveName()">حفظ الاسم</button><p class="tag">الاسم الرباعي هو مفتاح دخولك، فاحفظه كما كتبته بفواصله ونقاطه. أي تلاعب فيه يعرّضك للحظر 5 دقائق.</p></div>
+<div class="box"><h2>🔑 تغيير كلمة المرور</h2><input id="op" type="password" placeholder="كلمة المرور الحالية"><input id="np" type="password" placeholder="كلمة المرور الجديدة"><input id="np2" type="password" placeholder="تأكيد كلمة المرور الجديدة"><button onclick="savePw()">تغيير كلمة المرور</button></div>
+<div class="box"><h2>🛡️ التفضيلات</h2><label class="row"><span>إخفاء الرصيد افتراضياً عند فتح التطبيق</span><input type="checkbox" ${CFG.hide!==false?'checked':''} onchange="CFG.hide=this.checked;saveCfg()"></label></div>
+<div class="box"><h2>🌐 اللغة / Language</h2><div class="grid"><button class="${LANG()==='ar'?'':'ghost'}" onclick="setLang('ar')">العربية</button><button class="${LANG()==='en'?'':'ghost'}" onclick="setLang('en')">English</button></div></div>
+<div class="box"><h2>🎨 التحكم في الثيم</h2><div class="sw">${Object.entries(PRESETS).map(([k,p])=>`<button class="${CFG.preset===k&&!Object.keys(CFG.over).length?'cur':''}" style="background:linear-gradient(135deg,${p.acc},${p.acc2});color:${p.on}" onclick="setPreset('${k}')">${p.n}</button>`).join('')}</div>
+<h2 style="font-size:1em;margin-top:18px">ألوان مخصصة</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${ci('acc','لون التمييز')}${ci('bg','الخلفية')}${ci('card','البطاقات')}${ci('head','الشريط العلوي')}</div>
+<label class="tag">حجم الخط: ${CFG.fs}<input type="range" min="14" max="20" value="${CFG.fs}" oninput="CFG.fs=+this.value;saveCfg()" onchange="render()"></label></div>
+<div class="box"><h2>🖼️ الشعار والاسم</h2><input id="an" value="${esc(CFG.name)}" placeholder="اسم التطبيق" onchange="CFG.name=this.value||'محفظتي';saveCfg()"><input type="file" accept="image/*" onchange="setLogo(this.files[0])"><p class="tag" style="text-align:center">ارفع شعارك الخاص (يُحفظ على هذا الجهاز).</p><button class="ghost" onclick="CFG.logo='';saveCfg();render()">إزالة الشعار</button></div>
+<button class="ghost" onclick="CFG={preset:'gold',over:{},logo:'',name:'محفظتي',fs:16};saveCfg();render()">↺ استعادة الإعدادات الافتراضية</button>`}
+};
+function setLang(l){CFG.lang=l;saveCfg();render()}
+function setPreset(k){CFG.preset=k;CFG.over={};saveCfg();render()}
+function setColor(k,v){CFG.over[k]=v;if(k==='acc')CFG.over.acc2=shade(v,-35);saveCfg();render()}
+function setLogo(f){if(!f)return;const r=new FileReader();r.onload=()=>{CFG.logo=r.result;saveCfg();render()};r.readAsDataURL(f)}
+const stats=t=>{const i=t.filter(x=>INC.includes(x.type)).reduce((a,x)=>a+x.amount,0),o=t.filter(x=>!INC.includes(x.type)).reduce((a,x)=>a+x.amount,0);return `<div class="stats"><div style="color:var(--acc);border-color:var(--acc2)">الرصيد الحالي<b>${money(S.user.balance)}</b></div><div class="out" style="border-color:var(--bad)">إجمالي المنصرف<b>${money(o)}</b></div><div class="in" style="border-color:var(--ok)">إجمالي الوارد<b>${money(i)}</b></div></div>`};
+async function filt(){const r=await api(`statement?from=${val('f')}&to=${val('t')}`);S.txs=r.txs;$('#stm').innerHTML=stats(r.txs)+stm(r.txs)}
+function csv(){const rows=[['النوع','البيان','المبلغ','التاريخ'].map(tr),...S.txs.map(x=>[tr(typeName[x.type]),tr(x.note),x.amount,x.at])];const b=new Blob(['\ufeff'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n')],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='statement.csv';a.click()}
+function ask(id){if(!S.token){flash('سجّل الدخول أولاً للشراء');return render()}const q=parseInt(val('q'+id),10),p=S.pk.find(x=>x.id===id);if(!(q>=1)){flash('الكمية يجب أن تكون 1 أو أكثر');return render()}S.pend={id,q,label:p.label,total:p.price*q};go('confirm')}
+async function confirmBuy(){const p=S.pend,r=await api('buy',{pkg:p.id,qty:p.q});if(r.ok){S.bought={id:p.id,codes:r.codes};S.pend=null;await refresh();go('bought')}else{flash(r.msg);S.view='store';render()}}
+function cp(t){const ok=()=>{flash('تم النسخ ✅',true);render()};if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(ok,ok);else{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();ok()}}
+async function sendTicket(){const r=await api('ticket',{title:val('tt'),body:val('tb')});flash(r.msg,r.ok);render()}
+async function act(p,body,back){const r=await api(p,body);flash(r.msg,r.ok);if(r.ok)await refresh();if(back)S.view=back;render()}
+function cdStart(){clearInterval(S.ti);const end=Date.now()+S.wl;const tick=()=>{const l=end-Date.now(),c=$('#cd'),b=$('#sb');if(!c){clearInterval(S.ti);return}if(l<=0){c.textContent='🎉 العجلة جاهزة! جرّب حظك الآن';b.disabled=false;b.style.opacity=1;clearInterval(S.ti);return}const h=Math.floor(l/36e5),m=Math.floor(l%36e5/6e4),x=Math.floor(l%6e4/1e3);c.textContent='⏳ الدوران القادم بعد '+[h,m,x].map(n=>String(n).padStart(2,'0')).join(':');b.disabled=true;b.style.opacity=.5};tick();S.ti=setInterval(tick,1000)}
+async function spin(){const r=await api('wheel',{});if(r.ok){const w=$('#wh');w.style.transform=`rotate(${1440+Math.floor(Math.random()*360)}deg)`;await new Promise(z=>setTimeout(z,3000));await refresh()}flash(r.ok?(r.prize?`ربحت ${r.prize} ريال 🎉`:'حظاً أوفر غداً'):r.msg,r.ok);render()}
+const usersHtml=()=>{const q=(S.uq||'').trim().toLowerCase();return (S.ul||[]).filter(u=>!q||(u.name+u.phone+u.email).toLowerCase().includes(q)).map(u=>`<div style="border-bottom:1px solid var(--line);padding:12px 0"><b>${esc(u.name)}</b> ${u.role==='admin'?'<span class="tag">(مطوّر)</span>':''}${u.banned?'<span class="out"> ⛔ محظور</span>':''}<div class="tag" dir="ltr" style="text-align:start">${esc(u.phone)} · ${esc(u.email)}</div><div class="tag">الرصيد: ${money(u.balance)} ريال${u.banned?' · السبب: '+esc(u.banned.reason):''}</div>${u.role==='admin'?'':`<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><button class="ghost sm" onclick="notifyUser(${u.id})">🔔 تنبيه</button>${u.banned?`<button class="grn sm" onclick="banUser(${u.id},1)">✅ رفع الحظر</button>`:`<button class="sm" style="background:var(--bad);color:#fff" onclick="banUser(${u.id})">⛔ حظر</button>`}</div>`}</div>`).join('')||'<p class="tag">لا توجد نتائج.</p>'};
+const drawUsers=()=>$('#ul').innerHTML=usersHtml();
+async function notifyUser(id){const t=prompt(tr('نص التنبيه للمستخدم:'));if(t)await act('admin/notify',{uid:id,text:t},'users')}
+async function banUser(id,un){let reason='';if(!un){reason=prompt(tr('سبب الحظر (سيظهر للمستخدم):'));if(!reason)return}await act('admin/ban',{uid:id,reason,unban:!!un},'users')}
+async function saveName(){const r=await api('profile',{name:val('pn'),password:val('pnp')});flash(r.msg,r.ok);render()}
+async function savePw(){const r=await api('password',{old:val('op'),password:val('np'),confirm:val('np2')});flash(r.msg,r.ok);render()}
+function banView(){const b=S.ban,t=b.code==='BAN';return `<div class="title gt" style="margin-top:calc(env(safe-area-inset-top) + 40px)">${esc(CFG.name)}</div><div class="box" style="text-align:center"><div style="font-size:70px">⛔</div><h2>${t?'تم حظرك مؤقتاً':'تم حظر حسابك'}</h2><div class="msg">${esc(b.msg)}</div>${t?'<div class="pr" id="bc" dir="ltr" style="font-size:2em"></div>':''}<button class="ghost" ${t?'id="bb" disabled style="opacity:.5"':''} onclick="S.ban=null;render()">رجوع</button></div>`}
+function banStart(){clearInterval(S.bi);const end=S.ban.t+S.ban.left*1000;const tick=()=>{const l=Math.max(0,Math.ceil((end-Date.now())/1000)),c=$('#bc'),b=$('#bb');if(!c){clearInterval(S.bi);return}c.textContent=String(Math.floor(l/60)).padStart(2,'0')+':'+String(l%60).padStart(2,'0');if(!l){clearInterval(S.bi);b.disabled=false;b.style.opacity=1;c.textContent='انتهى الحظر ✅'}};tick();S.bi=setInterval(tick,1000)}
+async function render(){theme();const app=$('#app');
+ if(S.ban){app.innerHTML=banView();if(S.ban.code==='BAN')banStart();return}
+ if(!S.token&&S.guest){S.view='store';app.innerHTML=`<div style="height:calc(env(safe-area-inset-top) + 16px)"></div><div class="top" style="display:flex;justify-content:space-between;align-items:center;margin:10px 0"><b>وضع الزائر (تصفح فقط)</b><button class="ghost sm" onclick="S.guest=false;render()">دخول</button></div>${msgHtml()}`+await views.store();return}
+ if(!S.token)return app.innerHTML=authView();
+ await refresh();if(S.ban)return render();
+ if(!S.user)return app.innerHTML=authView();
+ const html=await views[S.view]();if(S.ban)return render();
+ app.innerHTML=shell(html);window.scrollTo(0,0);if(S.view==='wheel')cdStart();else clearInterval(S.ti)}
+new MutationObserver(()=>document.querySelectorAll('input[type=password]').forEach(i=>{if(i.parentElement.classList.contains('pw'))return;const w=document.createElement('div');w.className='pw';i.parentNode.insertBefore(w,i);w.appendChild(i);const b=document.createElement('button');b.type='button';b.className='eye2';b.textContent='👁️';b.setAttribute('aria-label','إظهار أو إخفاء كلمة المرور');b.onclick=()=>{const h=i.type==='password';i.type=h?'text':'password';b.textContent=h?'🙈':'👁️'};w.appendChild(b)})).observe(document.body,{childList:true,subtree:true});
+new MutationObserver(ms=>{if(LANG()!=='en')return;ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)trDom(n);else if(n.nodeType===3){const v=tr(n.nodeValue);if(v!==n.nodeValue)n.nodeValue=v}}))}).observe(document.body,{childList:true,subtree:true});
+render();
+</script>
+</body>
+</html>

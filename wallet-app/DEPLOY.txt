@@ -1,0 +1,81 @@
+الطريقة المجانية بلا بطاقة ائتمان (منصات Docker مثل SnapDeploy)
+================================================================
+المشروع فيه Dockerfile جاهز. على أي منصة حاويات مجانية (SnapDeploy وأمثالها):
+1) سجّل بحساب GitHub أو بريد (دون بطاقة) وارفع المشروع إلى مستودع GitHub.
+2) أنشئ Container/App جديداً واختر المستودع، وهو يبني الصورة من Dockerfile تلقائياً. المنفذ 3000.
+3) أضف متغيرات البيئة: ADMIN_KEY (كلمة سر قوية) و DATABASE_URL (رابط قاعدة Neon المجانية من القسم التالي).
+4) المنصات المجانية تنام عند عدم وجود زوار وتصحو عند أول طلب، والبيانات آمنة لأنها في قاعدة Neon.
+
+---------------------------------------------------------------
+
+الطريقة المجانية: Render (مجاني) + Neon (قاعدة بيانات مجانية)
+================================================================
+الفكرة: الاستضافة المجانية تمسح ملفات السيرفر عند إعادة التشغيل، لذلك نحفظ البيانات في قاعدة PostgreSQL مجانية خارج السيرفر.
+التطبيق يستخدم القاعدة تلقائياً عند وجود المتغير DATABASE_URL.
+
+1) قاعدة البيانات (Neon):
+   - سجّل في neon.tech وأنشئ Project جديداً (اختر منطقة أوروبية قريبة).
+   - انسخ رابط الاتصال (Connection string) ويبدأ بـ postgresql://
+2) GitHub: أنشئ مستودعاً خاصاً (Private) وارفع ملفات المجلد (لا ترفع data.json).
+3) Render:
+   - New > Web Service > اختر المستودع.
+   - Runtime: Node   |   Build Command: npm install   |   Start Command: npm start
+   - Instance Type: Free
+   - Environment Variables:
+       ADMIN_KEY    = كلمة_سر_قوية_للإدارة
+       DATABASE_URL = الرابط الذي نسخته من Neon
+4) بعد النشر افتح الرابط (https://اسمك.onrender.com) وسجّل حساب الإدارة (770131581) فوراً.
+ملاحظات:
+   - الخدمة المجانية "تنام" بعد فترة بلا زوار وأول فتح بعدها يتأخر قليلاً، والبيانات آمنة في Neon.
+   - حدود الخطط المجانية تتغير، راجع صفحات الأسعار قبل الاعتماد عليها.
+
+---------------------------------------------------------------
+
+نشر التطبيق على سيرفر حقيقي
+============================
+قبل النشر (مهم):
+1) اختر كلمة سر قوية للإدارة (ADMIN_KEY) ولا تستخدم "بو شنب" على السيرفر الحقيقي.
+2) استخدم HTTPS دائماً (الطريقتان أدناه توفرانه تلقائياً).
+3) سجّل حساب الإدارة (الرقم 770131581) فور التشغيل قبل أي شخص آخر.
+4) data.json يحوي بيانات المستخدمين وبصمات كلمات المرور: لا ترفعه إلى GitHub، وخذ منه نسخة احتياطية يومية.
+
+الطريقة أ: سيرفر VPS (الأفضل، قرص دائم وتكلفته قليلة) - Ubuntu 22.04
+-------------------------------------------------------------------
+1) وجّه الدومين (سجل A) إلى عنوان السيرفر.
+2) على السيرفر:
+   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+   sudo apt install -y nodejs
+3) من جهازك ارفع المجلد:   scp -r wallet-app root@IP_السيرفر:/opt/
+4) أنشئ الخدمة:  sudo nano /etc/systemd/system/wallet.service  والصق:
+   [Unit]
+   Description=Wallet App
+   After=network.target
+   [Service]
+   WorkingDirectory=/opt/wallet-app
+   Environment=PORT=3000
+   Environment=ADMIN_KEY=ضع_كلمة_سر_قوية_هنا
+   Environment=DATA_DIR=/var/lib/wallet
+   DynamicUser=yes
+   StateDirectory=wallet
+   ExecStart=/usr/bin/node server.js
+   Restart=always
+   [Install]
+   WantedBy=multi-user.target
+   ثم:  sudo systemctl enable --now wallet
+5) HTTPS عبر Caddy (تثبيته: caddyserver.com/docs/install) ثم في /etc/caddy/Caddyfile:
+   yourdomain.com {
+       reverse_proxy localhost:3000
+   }
+   ثم:  sudo systemctl reload caddy
+6) نسخ احتياطي يومي (crontab -e):
+   0 3 * * * cp /var/lib/private/wallet/data.json /root/backup-$(date +\%F).json
+
+الطريقة ب: Render (أسهل، لكن القرص الدائم مدفوع)
+-------------------------------------------------
+1) ارفع المجلد إلى مستودع GitHub خاص (ملف .gitignore يمنع رفع data.json).
+2) في Render: New > Blueprint واختر المستودع (يقرأ render.yaml)، أو Web Service يدوياً:
+   Start Command: npm start
+   Environment: ADMIN_KEY=كلمة_سرك ، DATA_DIR=/data
+   Disks: أضف قرصاً Mount Path=/data
+3) بدون القرص تُمسح الحسابات والأرصدة عند كل إعادة تشغيل، فلا تنشر بدونه.
+4) تحصل على رابط https://اسم-تطبيقك.onrender.com ويمكنك ربط دومين خاص.
